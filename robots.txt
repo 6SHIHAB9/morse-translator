@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://6SHIHAB9.github.io/morse-translator/sitemap.xml

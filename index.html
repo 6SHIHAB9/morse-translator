@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Title -->
+    <title>Morse Code Translator with Sound | Free Online Tool</title>
+    
+    <!-- SEO Description -->
+    <meta name="description" content="Free online Morse Code Translator with sound effects. Convert English to Morse code and Morse to English instantly. Includes letters, numbers, symbols, and a full Morse code chart.">
+    
+    <!-- SEO Keywords -->
+    <meta name="keywords" content="Morse code, Morse translator, English to Morse, Morse to English, Morse code sound, Morse chart, online morse translator, learn morse code">
+    
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="Morse Code Translator with Sound">
+    <meta property="og:description" content="Convert English to Morse code and Morse to English with sound effects. Fast, free, and includes a complete Morse code chart.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/6SHIHAB9/morse-translator.git">
+
+    
+    <!-- Structured Data for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Morse Code Translator",
+      "url": "https://github.com/6SHIHAB9/morse-translator.git",
+      "description": "Free online Morse Code Translator with sound effects. Translate between English and Morse code easily.",
+      "applicationCategory": "Utility",
+      "operatingSystem": "All"
+    }
+    </script>
+
+    <!-- Basic Styling -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+    background: #1f2833; /* Soft dark gray-blue */
+    color: #c5c6c7;      /* Light gray text */
+    text-align: center;
+    padding: 20px;
+}
+h1 {
+    color: #66fcf1; /* Neon cyan heading */
+}
+textarea {
+    width: 90%;
+    height: 100px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    background-color: #0b0c10; /* Very dark for contrast */
+    color: #ffffff;
+}
+button {
+    background-color: #45a29e; /* Teal buttons */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #66fcf1; /* Hover neon effect */
+    color: black;
+}
+footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #888;
+}
+.about {
+    margin-top: 40px;
+    text-align: left;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;        }
+    </style>
+</head>
+<body>
+    <h1>Morse Code Translator 🔊</h1>
+    <p>Translate between English and Morse code instantly — with sound effects!</p>
+
+    <textarea id="inputText" placeholder="Enter English or Morse code here..."></textarea>
+    <br>
+    <button onclick="translateToMorse()">English ➡ Morse</button>
+    <button onclick="translateToEnglish()">Morse ➡ English</button>
+    <button onclick="playMorse()">🔊 Play Morse Sound</button>
+
+    <textarea id="outputText" placeholder="Your translation will appear here..." readonly></textarea>
+
+    <div class="about">
+        <h2>About This Tool</h2>
+        <p>
+            This free online Morse Code Translator lets you easily convert between English and Morse code, complete with sound effects for dots and dashes. 
+            It supports all letters (A-Z), numbers (0-9), and common punctuation symbols.
+        </p>
+        <p>
+            Morse code was developed in the 1830s and 1840s for long-distance communication via telegraph. It’s still used today in amateur radio and for emergency signals like SOS (··· --- ···).
+        </p>
+    </div>
+
+    <footer>© 2025  Morse Code Translator with Sound | Built with ❤️
+    <br>
+    contact me:- ashihabutheen96@gmail.com 
+    </footer>
+
+    <script>
+        const morseCodeMap = {
+            'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
+            'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
+            'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
+            'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+            'Y': '-.--', 'Z': '--..',
+            '0': '-----', '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....',
+            '6': '-....', '7': '--...', '8': '---..', '9': '----.',
+            '.': '.-.-.-', ',': '--..--', '?': '..--..', "'": '.----.', '!': '-.-.--',
+            '/': '-..-.', '(': '-.--.', ')': '-.--.-', '&': '.-...', ':': '---...',
+            ';': '-.-.-.', '=': '-...-', '+': '.-.-.', '-': '-....-', '_': '..--.-',
+            '"': '.-..-.', '$': '...-..-', '@': '.--.-.'
+        };
+        const textToMorse = {};
+        for (let key in morseCodeMap) {
+            textToMorse[key] = morseCodeMap[key];
+        }
+        const morseToText = {};
+        for (let key in morseCodeMap) {
+            morseToText[morseCodeMap[key]] = key;
+        }
+
+        function translateToMorse() {
+            const text = document.getElementById("inputText").value.toUpperCase();
+            let morse = text.split('').map(char => {
+                if (char === ' ') return '/';
+                return textToMorse[char] || '';
+            }).join(' ');
+            document.getElementById("outputText").value = morse;
+        }
+
+        function translateToEnglish() {
+            const morse = document.getElementById("inputText").value.trim();
+            let text = morse.split(' ').map(code => {
+                if (code === '/') return ' ';
+                return morseToText[code] || '';
+            }).join('');
+            document.getElementById("outputText").value = text;
+        }
+
+        function playMorse() {
+            const morse = document.getElementById("outputText").value.trim();
+            let unit = 150; // Speed
+            let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+            function playTone(freq, duration) {
+                let oscillator = audioCtx.createOscillator();
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                oscillator.connect(audioCtx.destination);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + duration / 1000);
+            }
+
+            let time = 0;
+            morse.split('').forEach(symbol => {
+                if (symbol === '.') {
+                    setTimeout(() => playTone(600, unit), time);
+                    time += unit * 2;
+                } else if (symbol === '-') {
+                    setTimeout(() => playTone(600, unit * 3), time);
+                    time += unit * 4;
+                } else if (symbol === ' ') {
+                    time += unit * 2;
+                } else if (symbol === '/') {
+                    time += unit * 4;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
